@@ -1,0 +1,23 @@
+<!doctype html>
+{% extends "bootstrap/base.html" %}
+
+
+{% block title %}Hello World{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <br>
+    <ul class="nav nav-pills">
+        <li class="active dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="{{ url_for('.hello_world') }}">Inventory<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ url_for('.inventory_home') }}">Add</a></li>
+            <li><a href="{{ url_for('.inventory_browse') }}">Browse</a></li>                      
+          </ul>
+    </ul>
+
+	<p><h1>Hello World</h1></p>
+	<br>
+</div>
+{% endblock %}
