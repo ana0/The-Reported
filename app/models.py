@@ -31,7 +31,19 @@ classifications = {'g': 'Gunshot',
                     'c': 'CEW',
                     'u': 'Unknown'}
 
-
+provinces = {'PE': 'PEI',
+            'ON': 'Ontario',
+            'QC': 'Quebec',
+            'AB': 'Alberta',
+            'BC': 'British Columbia',
+            'MB': 'Manitoba',
+            'NB': 'New Brunswick',
+            'NL': 'Newfoundland and Labrador',
+            'NT': 'Northwest Territories',
+            'NS': 'Nova Scotia',
+            'NU': 'Nunavut',
+            'SK': 'Saskatchewan',
+            'YT': 'Yukon Territor'}
 
 #define models
 class Incidents(db.Model):
@@ -59,7 +71,9 @@ class Incidents(db.Model):
     occured_date = db.Column(db.Date)
     needs_review = db.Column(db.Boolean, nullable=False)
     details_id = db.Column(db.Integer, db.ForeignKey('details.id'))
-
+    details = db.relationship('Details', backref='incidents')
+    police_id = db.Column(db.Integer, db.ForeignKey('PoliceDepts.id'))
+    police_depts = db.relationship('PoliceDepts', backref='incidents')
 
 class Details(db.Model):
     __tablename__ = 'details'
@@ -73,23 +87,14 @@ class Details(db.Model):
     image_of = db.Column(db.String(200))
     address = db.Column(db.String(200))
     description = db.Column(db.String(1000))
-    incident = db.relationship('Incidents', backref='details')
+    incident = db.relationship('Incidents', uselist=False, backref='details')
   
-
-# class Material(db.Model):
-#   __tablename__ = 'materials'
-#   id = db.Column(db.Integer, primary_key=True)
-#   name = db.Column(db.String(64))
-#   inventory = db.relationship('Inventory', backref='material')
-
-# class Inventory(db.Model):
-#   __tablename__ = 'inventory'
-#   id = db.Column(db.Integer, primary_key=True)
-#   piece_id = db.Column(db.String, db.ForeignKey('pieces.name'))
-#   design_id = db.Column(db.Integer, db.ForeignKey('designs.id'))
-#   material_id = db.Column(db.Integer, db.ForeignKey('materials.id'))
-#   # piece_id = db.Column(db.String())
-#   # design_id = db.Column(db.String())
-#   # material_id = db.Column(db.String())
-#   in_studio = db.Column(db.Boolean)
-#   notes = db.Column(db.String())
+class PoliceDepts(db.Model):
+    __tablename__ = 'police_depts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    city = db.Column(db.String(100), nullable=False)
+    province = db.Column(db.Enum(*[p for p in provinces], name='province'), 
+        nullable=False)
+    investigating = db.Column(db.String(100))
+    incidents= db.relationship('Incidents', backref='incidents')
