@@ -24,7 +24,7 @@ depends_on = None
 
 
 def upgrade():
-    op.create_table('incident',
+    op.create_table('incidents',
         db.Column('id', db.Integer, primary_key=True),
         db.Column('name', db.Unicode(100), nullable=False),
         db.Column('age', db.Integer),
@@ -52,5 +52,5 @@ def upgrade():
 
 
 def downgrade():
-    op.drop_table('incident')
+    op.drop_table('incidents')
    

@@ -1,3 +1,5 @@
 *.sqlite
 venv/*
 *.pyc
+secrets.py
+alembic.ini

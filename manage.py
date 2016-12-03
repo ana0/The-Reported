@@ -1,5 +1,5 @@
 from app import create_app, db
-from app.models import Incident
+from app.models import Incident, Details
 
 app = create_app('default')
 

@@ -34,8 +34,8 @@ classifications = {'g': 'Gunshot',
 
 
 #define models
-class Incident(db.Model):
-    __tablename__ = 'incident'
+class Incidents(db.Model):
+    __tablename__ = 'incidents'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(100), nullable=False)
     age = db.Column(db.Integer)
@@ -58,13 +58,23 @@ class Incident(db.Model):
     updated_date = db.Column(db.Date)
     occured_date = db.Column(db.Date)
     needs_review = db.Column(db.Boolean, nullable=False)
+    details_id = db.Column(db.Integer, db.ForeignKey('details.id'))
 
 
-# class Design(db.Model):
-#   __tablename__ = 'designs'
-#   id = db.Column(db.Integer, primary_key=True)
-#   name = db.Column(db.String(64))
-#   inventory = db.relationship('Inventory', backref='design')
+class Details(db.Model):
+    __tablename__ = 'details'
+    id = db.Column(db.Integer, primary_key=True)
+    race = db.Column(db.String(200))
+    armed = db.Column(db.String(200))
+    charges = db.Column(db.String(200))
+    mental_health = db.Column(db.String(200))
+    classification = db.Column(db.String(200))
+    media_source = db.Column(db.String(200))
+    image_of = db.Column(db.String(200))
+    address = db.Column(db.String(200))
+    description = db.Column(db.String(1000))
+    incident = db.relationship('Incidents', backref='details')
+  
 
 # class Material(db.Model):
 #   __tablename__ = 'materials'

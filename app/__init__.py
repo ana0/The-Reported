@@ -22,8 +22,8 @@ def create_app(config_name):
 
 	#let flask know which instance of the app 'app' is
 	with app.app_context():
-		#pass
-		db.drop_all()
+		pass
+		#db.drop_all()
 		#db.create_all()
 
 	from main import main as main_blueprint
