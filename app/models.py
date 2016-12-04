@@ -1,11 +1,13 @@
 from . import db
 
-genders = {'m': 'Male',
+
+#Look up tables used to constuct the enums 
+genders_table = {'m': 'Male',
                 'f': 'Female',
                 'o': 'Other',
                 'u': 'Unknown'}
 
-races = {'a': 'Aboriginal',
+races_table = {'a': 'Aboriginal',
                 'b': 'Black',
                 'w': 'White',
                 'wa': 'Arab/West Asian',
@@ -16,22 +18,22 @@ races = {'a': 'Aboriginal',
                 'l': 'Latin American',
                 'u': 'Unknown'}
 
-armed = {'y': 'Yes',
+armed_table = {'y': 'Yes',
         'n': 'No',
         'u': 'Unknown'}
 
-charges = {'n': 'No Charges',
+charges_table = {'n': 'No Charges',
                 'l': 'Charges Laid',
                 'c': 'Conviction',
                 'i': 'Under Investigation',
                 'u': 'Unknown'}
 
-classifications = {'g': 'Gunshot',
+classifications_table = {'g': 'Gunshot',
                     'o': 'Other',
                     'c': 'CEW',
                     'u': 'Unknown'}
 
-provinces = {'PE': 'PEI',
+provinces_table = {'PE': 'PEI',
             'ON': 'Ontario',
             'QC': 'Quebec',
             'AB': 'Alberta',
@@ -45,20 +47,22 @@ provinces = {'PE': 'PEI',
             'SK': 'Saskatchewan',
             'YT': 'Yukon Territor'}
 
+#ADD YEAR COLUMN??
+
 #define models
 class Incidents(db.Model):
     __tablename__ = 'incidents'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(100), nullable=False)
     age = db.Column(db.Integer)
-    gender = db.Column(db.Enum(*[g for g in genders], name='gender'), 
+    gender = db.Column(db.Enum(*[g for g in genders_table], name='gender'), 
         nullable=False)
-    race = db.Column(db.Enum(*[r for r in races], name='race'), nullable=False)
-    armed = db.Column(db.Enum(*[a for a in armed], name='armed'), 
+    race = db.Column(db.Enum(*[r for r in races_table], name='race'), nullable=False)
+    armed = db.Column(db.Enum(*[a for a in armed_table], name='armed'), 
         nullable=False)
-    charges = db.Column(db.Enum(*[c for c in charges], 
+    charges = db.Column(db.Enum(*[c for c in charges_table], 
         name='charges'), nullable=False)
-    classication = db.Column(db.Enum(*[c for c in classifications], 
+    classication = db.Column(db.Enum(*[c for c in classifications_table], 
         name='classification'), nullable=False)
     alleged_suicide = db.Column(db.Boolean, nullable=False)
     mental_health = db.Column(db.Boolean, nullable=False)
@@ -94,7 +98,7 @@ class PoliceDepts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     city = db.Column(db.String(100), nullable=False)
-    province = db.Column(db.Enum(*[p for p in provinces], name='province'), 
-        nullable=False)
+    province = db.Column(db.Enum(*[p for p in provinces_table], 
+        name='province'), nullable=False)
     investigating = db.Column(db.String(100))
     incidents= db.relationship('Incidents', backref='incidents')
