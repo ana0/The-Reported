@@ -1,23 +1,7 @@
-<!doctype html>
-{% extends "bootstrap/base.html" %}
-<!-- {% import "bootstrap/wtf.html" as wtf %} -->
+{% extends "header.html" %}
 
-{% block title %}Inventory{% endblock %}
-
-
-{% block content %}
+{% block main %}
 <div class="container-fluid">
-    <br>
-    <ul class="nav nav-pills">
-        <li class="active dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="{{ url_for('.hello_world') }}">Inventory<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{{ url_for('.add_incident') }}">Add</a></li>
-            <li><a href="{{ url_for('.inventory_browse') }}">Browse</a></li>                      
-          </ul>
-    </ul>
-    <br>
-
 	{% for message in get_flashed_messages() %}
 	<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>

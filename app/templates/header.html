@@ -1,0 +1,33 @@
+{% extends "bootstrap/base.html" %}
+<!DOCTYPE html>
+
+{% block head %}
+{{super()}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}
+
+{% block title %}The Reported Admin{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <br>
+    <ul class="nav nav-pills">
+        <li class="active dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="{{ url_for('.hello_world') }}">Menu<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ url_for('.add_incident') }}">Add</a></li>
+            <li><a href="{{ url_for('.inventory_browse') }}">Browse</a></li>           
+          </ul>
+    </ul>
+</div>
+
+{% block main %}{% endblock %}
+
+{% endblock %}
+
+
+    
+</body>
+</html> 
