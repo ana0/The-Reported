@@ -12,7 +12,7 @@
         <li class="active dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="{{ url_for('.hello_world') }}">Inventory<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{{ url_for('.inventory_home') }}">Add</a></li>
+            <li><a href="{{ url_for('.add_incident') }}">Add</a></li>
             <li><a href="{{ url_for('.inventory_browse') }}">Browse</a></li>                      
           </ul>
     </ul>
@@ -25,47 +25,20 @@
 	</div>
 	{% endfor %}
 	<br>
-	<p><h1>Add item to inventory:</h1></p>
+	<p><h1>Add incident:</h1></p>
 
-	<form action="/add_inventory/" method="POST">
+	<form action="/add_incident/" method="POST">
 	 	{{ form.csrf_token }}
 		<div class="form-group">
 		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 		    <table class="table table-responsive">
-		    <tr>
-		    	<td>{{ form.designId.label }}</td>
-		    	<td>
-		    		{{ form.designId(class_="form-control")}}
-		    	</td>
-		    </tr>
-		    <tr>
-		    	<td>{{ form.piece.label }}</td>
-		    	<td>
-		    		{{ form.piece(class_="form-control")}}
-		    	</td>
-		    </tr>
-		    <tr>
-		    	<td>{{ form.materialId.label }}</td>
-		    	<td>
-		    		{{ form.materialId(class_="form-control")}}
-		    	</td>
-		    </tr>
-		    <tr>
-		    	<td>{{ form.inStudio.label }}</td>
-		    	<td>
-		    		{{form.inStudio(class_="form-control")}}
-		    	</td>
-		    </tr>
-		    <tr>
-		    	<td>{{ form.notes.label }}</td>
-		    	<td>
-		    		{{form.notes(class_="form-control")}}
-		    	</td>
-		    </tr>
-		    <tr>
-		    	<td><input type=submit value=Add></td>
-		    	<td></td>
-			</tr>
+		    {% for field in form %}
+    		<tr>     		
+        	<td>{{ field.label }}</td>
+        	<td>{{ field }}</td>
+    		</tr>
+			{% endfor %}
+
 			</table>
 		</div>
 	</form> 

@@ -96,6 +96,7 @@ class AddIncidentForm(Form):
         validators=[validators.optional()])
     needs_review = BooleanField("Does this entry need review?", 
         validators=[validators.optional()])
+    submit = SubmitField('Submit')
 
 
 #add item to inventory form

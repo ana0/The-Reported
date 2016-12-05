@@ -12,9 +12,19 @@ def hello_world():
 # def inventory_home(name="inventory"):
 # 	return render_template('inventory_home.html', name="inventory")
 
-@main.route('/add_inventory/', methods=("GET","POST"))
-def inventory_home():
-	pass
+@main.route('/add_incident/', methods=("GET","POST"))
+def add_incident():
+    form = AddIncidentForm()
+    if form.validate_on_submit():
+        flash('Incident added')
+        return redirect(url_for('.add_incident'))
+    for field, errors in form.errors.iteritems():
+        for err in errors:
+            flash(err)
+    return render_template('add_incident.html', form=form)
+
+# @main.route('/add_inventory/', methods=("GET","POST"))
+# def inventory_home():
 # 	form = AddInventoryItemForm()
 # 	form.designId.choices = designs
 # 	form.piece.choices = pieces
