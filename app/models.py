@@ -48,6 +48,8 @@ provinces_table = {'PE': 'PEI',
             'YT': 'Yukon Territor'}
 
 #ADD YEAR COLUMN??
+#upgrade length of description in details
+#upgrade length of url fields
 
 #define models
 class Incidents(db.Model):
@@ -87,10 +89,10 @@ class Details(db.Model):
     charges = db.Column(db.String(200))
     mental_health = db.Column(db.String(200))
     classification = db.Column(db.String(200))
-    media_source = db.Column(db.String(200))
-    image_of = db.Column(db.String(200))
+    media_source = db.Column(db.String(300))
+    image_of = db.Column(db.String(300))
     address = db.Column(db.String(200))
-    description = db.Column(db.String(1000))
+    description = db.Column(db.String(2000))
     incident = db.relationship('Incidents', uselist=False, backref='details')
   
 class PoliceDepts(db.Model):
