@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from wtforms import StringField, SelectField, BooleanField, SubmitField
-from wtforms import IntegerField, FloatField, DateField, validators
+from wtforms import IntegerField, FloatField, DateField, TextAreaField
+from wtforms import validators
 
 from ..models import genders_table, races_table, armed_table
 from ..models import classifications_table, charges_table, provinces_table
@@ -20,7 +21,7 @@ class AddIncidentForm(Form):
         validators.length(
             message=("Name must be less than 100 characters"), max=100)])
     age = IntegerField('Age:', 
-        validators=[validators.required(message="Age is required"), 
+        validators=[validators.required(message="Age must be a valid number"), 
         validators.NumberRange(max=150, message=("Age must be less than 150"))])
     gender = SelectField('Gender:', choices=format_form_choices(genders_table), 
         validators=[validators.required(message="Gender is required")])
@@ -89,7 +90,7 @@ class AddIncidentForm(Form):
             message="Image source must be a valid url"), validators.length(
             message=("Image source url must be less than 300 characters"), 
             max=300)])
-    description = StringField('Full description:', 
+    description = TextAreaField('Full description:', 
         validators=[validators.optional(), validators.length(
             message="Description must be less than 2000 characters", max=2000)])
     occured_date = DateField("Date of incident:", 

@@ -16,11 +16,11 @@ def hello_world():
 def add_incident():
     form = AddIncidentForm()
     if form.validate_on_submit():
-        flash('Incident added')
+        flash('Incident added', 'success')
         return redirect(url_for('.add_incident'))
     for field, errors in form.errors.iteritems():
         for err in errors:
-            flash(err)
+            flash(err, 'error')
     return render_template('add_incident.html', form=form)
 
 # @main.route('/add_inventory/', methods=("GET","POST"))

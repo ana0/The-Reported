@@ -2,7 +2,14 @@
 
 {% block main %}
 <div class="container-fluid">
-	{% for message in get_flashed_messages() %}
+	<br>
+	{% for message in get_flashed_messages(category_filter=['error']) %}
+	<div class="alert alert-warning">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		{{ message }}
+	</div>
+	{% endfor %}
+	{% for message in get_flashed_messages(category_filter=['success']) %}
 	<div class="alert alert-success">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		{{ message }}
@@ -17,10 +24,12 @@
 		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 		    <table class="table table-responsive">
 		    {% for field in form %}
-    		<tr>     		
-        	<td>{{ field.label }}</td>
-        	<td>{{ field }}</td>
-    		</tr>
+			    {% if field != form.csrf_token %}
+		    		<tr>     		
+		        	<td>{{ field.label }}</td>
+		        	<td>{{ field }}</td>
+		    		</tr>
+		    	{% endif %}
 			{% endfor %}
 
 			</table>
