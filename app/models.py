@@ -16,6 +16,7 @@ races_table = {'a': 'Aboriginal',
                 'm': 'Mixed Race',
                 'se': 'Southeast Asian',
                 'l': 'Latin American',
+                'o': 'Other',
                 'u': 'Unknown'}
 
 armed_table = {'y': 'Yes',
@@ -47,9 +48,7 @@ provinces_table = {'PE': 'PEI',
             'SK': 'Saskatchewan',
             'YT': 'Yukon Territor'}
 
-#ADD YEAR COLUMN??
-#upgrade length of description in details
-#upgrade length of url fields
+# make occured_date non-nullable
 
 #define models
 class Incidents(db.Model):
@@ -74,7 +73,7 @@ class Incidents(db.Model):
     submitted_by = db.Column(db.Unicode(100))
     created_date = db.Column(db.Date)
     updated_date = db.Column(db.Date)
-    occured_date = db.Column(db.Date)
+    occured_date = db.Column(db.Date, nullable=False)
     needs_review = db.Column(db.Boolean, nullable=False)
     details_id = db.Column(db.Integer, db.ForeignKey('details.id'))
     details = db.relationship('Details', backref='incidents')

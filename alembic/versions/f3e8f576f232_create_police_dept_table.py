@@ -14,7 +14,7 @@ dbpath = os.path.join(basedir, '..', '..')
 print dbpath
 sys.path.append(dbpath)
 
-from app.models import provinces
+from app.models import provinces_table
 
 # revision identifiers, used by Alembic.
 revision = 'f3e8f576f232'

@@ -14,7 +14,8 @@ dbpath = os.path.join(basedir, '..', '..')
 print dbpath
 sys.path.append(dbpath)
 
-from app.models import genders, races, armed, charges, classifications
+from app.models import genders_table, races_table, armed_table
+from app.models import charges_table, classifications_table
 
 # revision identifiers, used by Alembic.
 revision = 'defe4eaa4ce0'

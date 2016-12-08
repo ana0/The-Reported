@@ -2,7 +2,8 @@ from flask import render_template, Flask, redirect, url_for, flash
 from . import main
 from .forms import AddIncidentForm
 from .. import db
-# from ..models import Inventory, Material, Design, Piece, designs, pieces, materials
+from ..models import Incidents, Details, PoliceDepts
+from datetime import date
 
 @main.route('/')
 def hello_world():
@@ -17,6 +18,24 @@ def add_incident():
     form = AddIncidentForm()
     if form.validate_on_submit():
         flash('Incident added', 'success')
+        created = date.today()
+        # occured_parsed = [int(i) for i in form.occured_date.data.split('/')]
+        # occured = date(occured_parsed[2], occured_parsed[1], occured_parsed[0])
+        detail = Details(race=form.race_comment.data, 
+            armed=form.armed_comment.data, charges=form.charges_comment.data,
+            mental_health=form.mental_health_comment.data, 
+            classification=form.classification_comment.data, 
+            media_source=form.media_source.data, image_of=form.image_of.data,
+            address=form.address.data, description=form.description.data)
+        incident = Incidents(name=form.name.data, age=form.age.data, 
+            gender=form.gender.data, race=form.race.data, armed=form.armed.data,
+            charges=form.charges.data, classification=form.classification.data,
+            alleged_suicide=form.alleged_suicide.data, 
+            mental_health=form.mental_health.data, 
+            postal_code=form.postal_code.data, latitude=form.latitude.data, 
+            longitude=form.longitude.data, submitted_by=form.submitted_by.data,
+            created_date=created, occured_date=form.occured_date.data, 
+            needs_review=form.needs_review.data, details_id=detail.id)
         return redirect(url_for('.add_incident'))
     for field, errors in form.errors.iteritems():
         for err in errors:
