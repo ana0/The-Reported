@@ -76,9 +76,9 @@ class Incidents(db.Model):
     occured_date = db.Column(db.Date, nullable=False)
     needs_review = db.Column(db.Boolean, nullable=False)
     details_id = db.Column(db.Integer, db.ForeignKey('details.id'))
-    details = db.relationship('Details', backref='incidents')
-    police_id = db.Column(db.Integer, db.ForeignKey('PoliceDepts.id'))
-    police_depts = db.relationship('PoliceDepts', backref='incidents')
+    details_ = db.relationship('Details', back_populates='incident_')
+    police_id = db.Column(db.Integer, db.ForeignKey('police_depts.id'))
+    police_depts_ = db.relationship('PoliceDepts', back_populates="incidents_")
 
 class Details(db.Model):
     __tablename__ = 'details'
@@ -92,7 +92,7 @@ class Details(db.Model):
     image_of = db.Column(db.String(300))
     address = db.Column(db.String(200))
     description = db.Column(db.String(2000))
-    incident = db.relationship('Incidents', uselist=False, backref='details')
+    incident_ = db.relationship('Incidents', uselist=False, back_populates="details_")
   
 class PoliceDepts(db.Model):
     __tablename__ = 'police_depts'
@@ -102,4 +102,4 @@ class PoliceDepts(db.Model):
     province = db.Column(db.Enum(*[p for p in provinces_table], 
         name='province'), nullable=False)
     investigating = db.Column(db.String(100))
-    incidents= db.relationship('Incidents', backref='incidents')
+    incidents_ = db.relationship("Incidents", back_populates="police_depts_")

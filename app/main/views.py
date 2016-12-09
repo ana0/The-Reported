@@ -16,11 +16,17 @@ def hello_world():
 @main.route('/add_incident/', methods=("GET","POST"))
 def add_incident():
     form = AddIncidentForm()
+    all_police_depts = PoliceDepts.query.all()
+    form.police_dept.choices = [(i.name, i.name) for i in all_police_depts]
+    form.police_dept.choices = form.police_dept.choices + [('u', 'Unknown')]
+    form.police_dept.default = 'u'
+    all_investigating = [(i.investigating, i.investigating) for i in all_police_depts]
+    form.investigating.choices = all_investigating 
+    form.investigating.choices = form.investigating.choices + [('u', 'Unknown')]
+    form.investigating.default = 'u'
     if form.validate_on_submit():
         flash('Incident added', 'success')
         created = date.today()
-        # occured_parsed = [int(i) for i in form.occured_date.data.split('/')]
-        # occured = date(occured_parsed[2], occured_parsed[1], occured_parsed[0])
         detail = Details(race=form.race_comment.data, 
             armed=form.armed_comment.data, charges=form.charges_comment.data,
             mental_health=form.mental_health_comment.data, 

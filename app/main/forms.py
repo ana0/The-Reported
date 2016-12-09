@@ -28,12 +28,12 @@ class AddIncidentForm(Form):
                 max=150, 
                 message=("Age must be less than 150"))])
     gender = SelectField('Gender:', 
-        choices=format_form_choices(genders_table)
+        choices=format_form_choices(genders_table),
         default='u', 
         validators=[validators.required(message="Gender is required")])
     race = SelectField('Race/Ethnicity:', 
         choices=format_form_choices(races_table), 
-        default='u'
+        default='u',
         validators=[validators.required(message="Race is required")])
     race_comment = StringField('Additional details:', 
         validators=[
@@ -44,7 +44,7 @@ class AddIncidentForm(Form):
                 max=200)])
     armed = SelectField('Was the deceased armed?', 
         choices=format_form_choices(armed_table), 
-        default='u'
+        default='u',
         validators=[
             validators.required(
                 message="Marking whether the deceased was armed is required")])
@@ -57,7 +57,7 @@ class AddIncidentForm(Form):
                 max=200)])
     charges = SelectField('Status of charges or conviction:', 
         choices=format_form_choices(charges_table),
-        default='u'
+        default='u',
         validators=[
             validators.required(message="Status of charges is required")])
     charges_comment = StringField('Additional details:', 
@@ -72,6 +72,7 @@ class AddIncidentForm(Form):
     investigating = SelectField("Name of the investigating body:")
     classification = SelectField('How was the death classified?', 
         choices=format_form_choices(classifications_table),
+        default='u',
         validators=[validators.required(
             message="Classification of the death is required")])
     classification_comment = StringField('Additional details:', 
