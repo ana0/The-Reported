@@ -63,7 +63,7 @@ class Incidents(db.Model):
         nullable=False)
     charges = db.Column(db.Enum(*[c for c in charges_table], 
         name='charges'), nullable=False)
-    classication = db.Column(db.Enum(*[c for c in classifications_table], 
+    classification = db.Column(db.Enum(*[c for c in classifications_table], 
         name='classification'), nullable=False)
     alleged_suicide = db.Column(db.Boolean, nullable=False)
     mental_health = db.Column(db.Boolean, nullable=False)

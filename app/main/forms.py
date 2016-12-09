@@ -102,7 +102,7 @@ class AddIncidentForm(Form):
             validators.length(
                 max=6, 
                 message="Postal Code must be less than 6 characters")])
-    address = StringField('Place or address of incident:', 
+    address = StringField('Location or address of incident:', 
         validators=[
             validators.optional(), 
             validators.length(
@@ -110,7 +110,7 @@ class AddIncidentForm(Form):
                 max=200)])
     city = StringField("Municipality:", 
         validators=[
-            validators.optional(),
+            validators.required(message="Municipality is required"),
             validators.length(
                 message="Municipality name must be less than 100 characters",
                 max=100)])

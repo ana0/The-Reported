@@ -1,9 +1,11 @@
 from flask import render_template, Flask, redirect, url_for, flash
+from flask import make_response
 from . import main
 from .forms import AddIncidentForm
 from .. import db
 from ..models import Incidents, Details, PoliceDepts
 from datetime import date
+import json
 
 @main.route('/')
 def hello_world():
@@ -15,16 +17,23 @@ def hello_world():
 
 @main.route('/add_incident/', methods=("GET","POST"))
 def add_incident():
+    """Renders the add incident form, validates contents on submission, and 
+    adds it to the database if successful"""
     form = AddIncidentForm()
-    all_police_depts = PoliceDepts.query.all()
-    form.police_dept.choices = [(i.name, i.name) for i in all_police_depts]
-    form.police_dept.choices = form.police_dept.choices + [('u', 'Unknown')]
+    #contents of police dept and investigating org dropdown must be populated
+    #dynamically from database 
+    #unknown is added to the list and set as the default option
+    all_depts = PoliceDepts.query.all()
+    form.police_dept.choices = [(i.id, i.name) for i in all_depts]
+    form.police_dept.choices = [('u', 'Unknown')] + form.police_dept.choices
     form.police_dept.default = 'u'
-    all_investigating = [(i.investigating, i.investigating) for i in all_police_depts]
+    all_investigating = [(i.id, i.investigating) for i in all_depts]
     form.investigating.choices = all_investigating 
-    form.investigating.choices = form.investigating.choices + [('u', 'Unknown')]
+    form.investigating.choices = [('u', 'Unknown')] + form.investigating.choices
     form.investigating.default = 'u'
     if form.validate_on_submit():
+        #if the form is successfully validated, add the correct tables to the
+        #database
         flash('Incident added', 'success')
         created = date.today()
         detail = Details(race=form.race_comment.data, 
@@ -47,6 +56,18 @@ def add_incident():
         for err in errors:
             flash(err, 'error')
     return render_template('add_incident.html', form=form)
+
+@main.route('/models/<int:police_id>/', methods=["GET"])
+def get(police_id):
+    dept = PoliceDepts.query.get(police_id)
+    data = {'name': dept.name,
+            'city': dept.city,
+            'province': dept.province,
+            'investigating': dept.investigating}
+    response = make_response(json.dumps(data))
+    response.content_type = 'application/json'
+    return response
+
 
 # @main.route('/add_inventory/', methods=("GET","POST"))
 # def inventory_home():
