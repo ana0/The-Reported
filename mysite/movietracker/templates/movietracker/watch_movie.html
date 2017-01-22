@@ -1,0 +1,9 @@
+{% block content %}
+  <h2>Word</h2>
+  <iframe width="560" height="315" src={{ youtube_url }} frameborder="0" allowfullscreen></iframe>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Done</button>
+  </form>
+{% endblock %}

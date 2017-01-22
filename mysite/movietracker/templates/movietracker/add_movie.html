@@ -1,0 +1,15 @@
+{% extends 'movietracker/index.html' %}
+
+{% load staticfiles %}
+<script type="text/javascript" src="{% static 'movietracker/scripts.js' %}"></script> 
+
+{% block title %}Add movie{% endblock %}
+
+{% block content %}
+  <h2>Enter the url to being watching</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Watch</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'movietracker/index.html' %}
+
+{% block title %}Movie report{% endblock %}
+
+{% block content %}
+  <h2>How was the movie?</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post</button>
+  </form>
+{% endblock %}

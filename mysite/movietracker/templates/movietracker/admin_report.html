@@ -1,0 +1,17 @@
+{% block content %}
+    <h2>All movies</h2>
+    <table>
+            <tr>
+                <td>Movie</td>
+                <td>Number of Views</td>
+                <td>Average Rating</td>
+            </tr>
+        {% for m in object_list %}
+            <tr>
+                <td>{{ m.title }}</td>
+                <td>{{ m.num_views }}</td>
+                <td>{{ m.avg_rating }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
