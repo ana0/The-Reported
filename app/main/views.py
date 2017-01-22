@@ -58,7 +58,7 @@ def add_incident():
     return render_template('add_incident.html', form=form)
 
 @main.route('/models/<int:police_id>/', methods=["GET"])
-def get(police_id):
+def get_police_depts(police_id):
     dept = PoliceDepts.query.get(police_id)
     data = {'name': dept.name,
             'city': dept.city,

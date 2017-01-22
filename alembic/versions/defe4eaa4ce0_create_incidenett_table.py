@@ -37,7 +37,7 @@ def upgrade():
             nullable=False),
         db.Column('charges', db.Enum(*[c for c in charges], 
             name='charges'), nullable=False),
-        db.Column('classification', db.Enum(*[c for c in classifications], 
+        db.Column('classication', db.Enum(*[c for c in classifications], 
             name='classification'), nullable=False),
         db.Column('alleged_suicide', db.Boolean, nullable=False),
         db.Column('mental_health', db.Boolean, nullable=False),
