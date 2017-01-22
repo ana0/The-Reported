@@ -15,24 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-
-from .views import MakeReport
-
-def get_admin_urls(urls):
-    def get_urls():
-        my_urls = [url(r'^make_report/$', 
-            admin.site.admin_view(MakeReport.as_view()))] 
-        return my_urls + urls
-    return get_urls
-
-admin_urls = get_admin_urls(admin.site.get_urls())
-admin.site.get_urls = admin_urls
 
 urlpatterns = [
-    url(r'^movietracker/', include('movietracker.urls')),
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
+    url(r'^thereported/', include('thereported.urls')),
 ]
-

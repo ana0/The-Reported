@@ -1,6 +1,8 @@
 *.sqlite
 venv/*
 *.pyc
-secrets.py
+*/secrets.py
 alembic.ini
 .fuse*
+settings.py
+secrets.py
